@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ shop.name }} - Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .shop-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .item-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+
+        .pretty-link {
+            font-size: 18px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        #map {
+            height: 400px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    <!-- Corrected Google Maps API key URL -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwkmeLidORxYvzuIAEaVRGSE-PWbgNuOc&callback=initMap&libraries=directions"
+        async defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ shop.name }}</h1>
+        <div class="shop-info">
+            <p><strong>Location:</strong> {{ shop.lat }}, {{ shop.lng }}</p>
+        </div>
+
+        <h2>Items for Sale by {{ shop.name }}</h2>
+        <div class="items">
+            {% for item in items %}
+            <div class="item-card">
+                <img src="data:image/png;base64,{{ item.photo }}" alt="{{ item.title }}">
+                <h3>{{ item.title }}</h3>
+                <p><strong>Category:</strong> {{ item.category }}</p>
+                <p><strong>Quantity available:</strong> {{ item.quantity }}</p>
+                <p class="price">Price: ₹{{ item.price }}</p>
+                <p><strong>Contact:</strong> {{ item.contact }}</p>
+                <p><strong>Location:</strong> {{ item.location }}</p>
+            </div>
+            {% else %}
+            <p>No items listed yet.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Map Section -->
+        <div id="map"></div>
+    </div>
+
+    <script>
+        let map, directionsService, directionsRenderer;
+
+        function initMap() {
+            // Get user's current location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+
+                        const shopLocation = {
+                            lat: parseFloat("{{ shop.lat }}"),
+                            lng: parseFloat("{{ shop.lng }}")
+                        };
+
+                        // Create map centered on user location
+                        map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 14,
+                            center: userLocation
+                        });
+
+                        // Create directions service and renderer
+                        directionsService = new google.maps.DirectionsService();
+                        directionsRenderer = new google.maps.DirectionsRenderer();
+                        directionsRenderer.setMap(map);
+
+                        // Create a marker for the shop
+                        const shopMarker = new google.maps.Marker({
+                            position: shopLocation,
+                            map: map,
+                            title: '{{ shop.name }}',
+                            icon: "/static/images/store.png"
+                        });
+
+                        // Show directions from the user's location to the shop
+                        calculateAndDisplayRoute(userLocation, shopLocation);
+                    },
+                    (error) => {
+                        console.error("Geolocation error:", error);
+                        alert("Location access denied. Unable to display directions.");
+                        }, 
+                        { enableHighAccuracy: true }
+                    );
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            }
+        
+
+        function calculateAndDisplayRoute(userLocation, shopLocation) {
+            const request = {
+                origin: userLocation,
+                destination: shopLocation,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            directionsService.route(request, (response, status) => {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsRenderer.setDirections(response);
+                } else {
+                    alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+        
+    </script>
+</body>
+
+</html>

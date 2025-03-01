@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <!--font awesome  -->
+    <style>@import url('https://fonts.googleapis.com/css2?family=Rampart+One&family=Roboto:wght@500&display=swap');
+
+        body{
+            padding: 0;
+            margin: 0;
+            font-family: 'Rampart One', cursive;
+            color: whitesmoke;
+        }
+        
+        hr{
+            width: 80%;
+            padding-top: 0;
+            padding-bottom: 1%;
+            border: none;
+            border-top: solid;
+            border-color: rgb(193, 212, 83);
+            padding-bottom: 10%;
+        }
+        .background-img{
+            background: url('/static/images/wallpaper.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            background-blend-mode: darken;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            z-index: -1;     
+        }
+        .container{
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3));
+            width: 350px;
+            padding: 50px 30px;
+            border-radius: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: x-large;
+            padding: 50px 20px 50px 20px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.5);
+        }
+        .container .welcome{
+            color: rgb(165, 38, 16);
+            font-size: 2.5rem;
+            padding-bottom: 0;
+            text-align: center;
+            margin: auto;
+            font-family: 'Rampart One', cursive;
+        }
+        .container .row:nth-child(1){
+            padding-bottom: 20px;
+        }
+        .container .row input:not([type= 'checkbox'])
+        {
+            width: 80%;
+            border-radius: 30px;
+            padding: 10px;
+            outline: none;
+            font-size: 15px;
+            border: 1px solid rgba(255,255,255,.3);
+            color: tomato;
+            background: transparent ;
+        }
+        .container div:nth-child(1) input,
+        .container div:nth-child(2) input{
+            background: rgba(255,255,255,0.3);
+        }
+        .forget{
+            text-align: right;
+            padding-right: 20px;
+            padding-bottom: 20px;
+        } 
+        .container .forget a{
+            align-items: right;
+            color: whitesmoke;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .container .remember{
+            text-align: left;
+            padding-left: 5px;
+            font-size: 15px;
+        }
+        .container .forget a:hover{
+            color: tomato;
+        }
+        .container .button{
+            padding: 20px;
+        }
+        .container .button button{
+            padding: 10px 100px 10px 100px;
+            border-radius: 30px;
+            font-family: sans-serif;
+            font-weight: 900;
+            background-color: transparent;
+            border: 1px solid #fff;
+            font-size: 20px;
+            color: #fff;
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+        }
+        .container .button button:hover{
+            background-color: whitesmoke;
+            color: tomato;
+        }
+        .container .lastline{
+            font-size: 15px;
+        }
+        .container .lastline a{
+            text-decoration: none;
+            padding-left: 10px;
+            color: whitesmoke;
+        }
+        .container .lastline a:hover{
+            color: tomato;
+        }</style>
+</head>
+<body>
+    <div class="background-img"></div>
+    
+    <div class="container">
+        <h2 class="welcome">WELCOME BACK</h2>
+        <hr>
+    <form action="/login" method="post">
+        <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="USERNAME " name="username" id="username">
+        </div>
+        <div class="row">
+            <i class="fas fa-key"></i>
+            <input type="password" placeholder="PASSWORD" name="password" id="password">
+        </div>
+        <div class="forget">
+            <a href="#">FORGET PASSWORD?</a>    
+        </div>
+        <div class="remember">
+            <input type="checkbox" id="_checkbox">
+            <label for="_checkbox">REMEMBER ME</label> 
+        </div>
+        <div class="button">
+            <button type="submit">LOGIN</button>
+        </div>
+        <div class="lastline">
+            <em>NOT A MEMBER ? </em>
+            <a href="{{url_for('signup')}}">SIGN UP</a>
+        </div>
+    </form>
+    </div>
+</body>
+</html>

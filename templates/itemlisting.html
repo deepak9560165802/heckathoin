@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Listing </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4a82b954;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #98f1b8e1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            display: block;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"], input[type="file"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 20px;
+            border: 1px solid #0bcf2f;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1d351f;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group select, .form-group input[type="file"] {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .form-group input[type="file"] {
+            padding: 5px;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+   <u><h2>Item Listing </h2></u> 
+    <form action="/listing" method="POST" enctype="multipart/form-data">
+        
+        <div class="form-group">
+            <label for="title">Item Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" required>
+        </div>
+
+        <div class="form-group">
+            <label for="condition">Condition:</label>
+            <select id="condition" name="condition" required>
+                <option value="new">New</option>
+                <option value="used">Used</option>
+                <option value="refurbished">Refurbished</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="brand">Brand/Manufacturer:</label>
+            <input type="text" id="brand" name="brand">
+        </div>
+
+        <div class="form-group">
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model">
+        </div>
+
+        <div class="form-group">
+            <label for="features">Features:</label>
+            <textarea id="features" name="features" rows="4" cols="50"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="defects">Defects/Damages (if any):</label>
+            <textarea id="defects" name="defects" rows="4" cols="50"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required>
+        </div>
+
+        <div class="form-group">
+            <label for="payment_methods">Accepted Payment Methods:</label>
+            <input type="text" id="payment_methods" name="payment_methods" required>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity Available:</label>
+            <input type="number" id="quantity" name="quantity" required>
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+        </div>
+
+        <div class="form-group">
+            <label for="shipping">Shipping/Delivery Options:</label>
+            <input type="text" id="shipping" name="shipping">
+        </div>
+
+        <div class="form-group">
+            <label for="contact">Seller Contact Details:</label>
+            <input type="text" id="contact" name="contact" required>
+        </div>
+
+        <div class="form-group">
+            <label for="return_policy">Return Policy:</label>
+            <input type="text" id="return_policy" name="return_policy">
+        </div>
+
+        <div class="form-group">
+            <label for="warranty">Warranty/Guarantee:</label>
+            <input type="text" id="warranty" name="warranty">
+        </div>
+
+        <div class="form-group">
+            <label for="photo">Upload Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <div class="form-footer">
+        <p>All fields are required unless specified otherwise.</p>
+    </div>
+</div>
+
+</body>
+</html>

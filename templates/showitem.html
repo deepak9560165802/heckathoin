@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        /* Container for the items */
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Styling individual items */
+        .item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .item img {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .item-info h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .item-info p {
+            font-size: 1rem;
+            margin: 5px 0;
+            color: #7f8c8d;
+        }
+
+        .item-info strong {
+            color: #2c3e50;
+        }
+
+        /* Price and Contact Styling */
+        .price {
+            font-size: 1.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .contact-info {
+            font-size: 1rem;
+            color: #34495e;
+            margin-top: 15px;
+        }
+
+        /* Styling for 'No image available' */
+        .no-image {
+            font-style: italic;
+            color: #bdc3c7;
+            margin-top: 10px;
+        }
+
+        /* Add hover effect on each item */
+        .item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Styling for No items found */
+        .no-items {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #bdc3c7;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .item img {
+                margin-bottom: 15px;
+                max-width: 150px;
+                max-height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Item List</h1>
+
+    <div class="container">
+        {% if items %}
+            <div>
+                {% for item in items %}
+                
+
+                    <div class="item">
+                        <!-- Image Section -->
+                        <div>
+                            {% if item.photo %}
+                            <img src="data:image/png;base64,{{ item.photo }}" alt="{{ item.title }}">
+                            {% else %}
+                                <div class="no-image">No image available.</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Item Information -->
+                        <div class="item-info">
+                            <h2>{{ item.title }}</h2>
+                            <p><strong>Category:</strong> {{ item.category }}</p>
+                            <p><strong>Brand:</strong> {{ item.brand }}</p>
+                            <p><strong>Model:</strong> {{ item.model }}</p>
+                            <p><strong>Price:</strong> ₹{{ item.price }}</p>
+                            <p><strong>Features:</strong> {{ item.features }}</p>
+                            <p><strong>Defects:</strong> {{ item.defects }}</p>
+                            <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                            <p><strong>Location:</strong> {{ item.location }}</p>
+                            <p><strong>Shipping:</strong> {{ item.shipping }}</p>
+                            <p><strong>Return Policy:</strong> {{ item.return_policy }}</p>
+                            <p><strong>Warranty:</strong> {{ item.warranty }}</p>
+                        </div>
+
+                        <!-- Price and Contact -->
+                        <div>
+                            <p class="price">Price: ₹{{ item.price }}</p>
+                            <p class="contact-info"><strong>Contact:</strong> {{ item.contact }}</p>
+                            <p class="contact-info"><strong>SHOP ID:</strong>{{ item.user_id }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-items">No items found in the database.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
